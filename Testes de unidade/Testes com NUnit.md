@@ -100,20 +100,20 @@ A partir daí o dotnet executa os testes e informa o resultado.
 
 ## Referências
 
-1. Test-Driven Development - Maurício Aniche
+1. Test-Driven Development - Maurício Aniche  
 https://tdd.caelum.com.br/ - Acessado em 15/04/2019
 
-2. Test-driven development as a defect-reduction practice - L. Williams ; E.M. Maximilien ; M. Vouk 
+2. Test-driven development as a defect-reduction practice - L. Williams ; E.M. Maximilien ; M. Vouk  
 https://ieeexplore.ieee.org/abstract/document/1251029 - Acessado em 15/04/2019
 
-3. Unit Testing with JUnit - vogella 
+3. Unit Testing with JUnit - vogella  
 https://www.vogella.com/tutorials/JUnit/article.html - Acessado em 16/04/2019
 
-4. 3A – Arrange, Act, Assert - Bill Wake 
+4. 3A – Arrange, Act, Assert - Bill Wake  
 https://xp123.com/articles/3a-arrange-act-assert - Acessado em 16/04/2019
 
-5. Teste unitário e Qualidade de Software - Diogo Miranda 
+5. Teste unitário e Qualidade de Software - Diogo Miranda  
 https://medium.com/assertqualityassurance/teste-unit%C3%A1rio-e-qualidade-de-software-acce7b9c537 - Acessado em 16/04/2019
 
-6. NUnit Documentation - NUnit org 
+6. NUnit Documentation - NUnit org  
 https://nunit.org - Acessado em 16/04/2019
