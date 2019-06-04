@@ -1,4 +1,5 @@
 # Testes com NUnit
+Henrique Felipe Urruth
 
 ## Por que escrever testes de unidade?
 
