@@ -1,5 +1,4 @@
-# Testes com NUnit
-Henrique Felipe Urruth
+# Testes com NUnit 
 
 ## Por que escrever testes de unidade?
 
@@ -58,17 +57,17 @@ Asserts são os métodos que determinam se o resultado de um teste é uma falha 
 
 Alguns exemplos de métodos contidos na classe Assert (NUnit.Framework.Assert):
 
-- Equalidade: 
+- Equalidade:  
 AreEqual() - Para garantir que um objeto tem o mesmo valor que outro 
-- Identidade: 
+- Identidade:  
 AreSame() - Para garantir que um objeto tem a mesma referencia do que outro 
-- Condições: 
-IsTrue() - Para garantir que um valor é verdadeiro 
-IsFalse() - Para garantir que um valor é falso 
-Null() - Para garantir que um valor é nulo 
-NotNull() - Para garantir que um valor não é nulo 
-- Comparações: 
-Less() - Para garantir que um valor é menor que outro 
+- Condições:  
+IsTrue() - Para garantir que um valor é verdadeiro  
+IsFalse() - Para garantir que um valor é falso  
+Null() - Para garantir que um valor é nulo  
+NotNull() - Para garantir que um valor não é nulo  
+- Comparações:   
+Less() - Para garantir que um valor é menor que outro  
 Greater() - Para garantir que um valor é maior que outro 
 
 ## Como começar?
@@ -102,18 +101,17 @@ A partir daí o dotnet executa os testes e informa o resultado.
 
 1. Test-Driven Development - Maurício Aniche  
 https://tdd.caelum.com.br/ - Acessado em 15/04/2019
-
 2. Test-driven development as a defect-reduction practice - L. Williams ; E.M. Maximilien ; M. Vouk  
 https://ieeexplore.ieee.org/abstract/document/1251029 - Acessado em 15/04/2019
-
 3. Unit Testing with JUnit - vogella  
 https://www.vogella.com/tutorials/JUnit/article.html - Acessado em 16/04/2019
-
 4. 3A – Arrange, Act, Assert - Bill Wake  
 https://xp123.com/articles/3a-arrange-act-assert - Acessado em 16/04/2019
-
 5. Teste unitário e Qualidade de Software - Diogo Miranda  
 https://medium.com/assertqualityassurance/teste-unit%C3%A1rio-e-qualidade-de-software-acce7b9c537 - Acessado em 16/04/2019
-
 6. NUnit Documentation - NUnit org  
 https://nunit.org - Acessado em 16/04/2019
+ 
+---
+Autor: Henrique Felipe Urruth  
+Data: 04/06/2019
