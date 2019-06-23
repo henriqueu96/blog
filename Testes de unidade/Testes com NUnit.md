@@ -4,7 +4,7 @@
 
 Ao desenvolver teste de unidade, nós, desenvolvedores, entendemos melhor a utilização da feature que estamos escrevendo, otimizando assim os parâmetros e retornos dessa feature, gerando código mais legível e confiável.
 
-Ao modo em que vamos desenvolvendo novas feartures, vamos também sobrepondo e estendendo códigos de features anteriores, e é aí que os testes de unidade nos asseguram que essas mudanças não causaram impactos negativos no sistema, gerando, assim, segurança para o desenvolvedor e solidez para nosso código.
+Ao modo em que vamos desenvolvendo novas features, vamos também sobrepondo e estendendo códigos de features anteriores, e é aí que os testes de unidade nos asseguram que essas mudanças não causaram impactos negativos no sistema, gerando, assim, segurança para o desenvolvedor e solidez para nosso código.
 
 "Se está difícil escrever um teste automatizado, é porque provavelmente o código de produção está complicado"[1]. Essa afirmativa trás os testes de unidade como uma métrica de qualidade do design do código. Se uma feature é facilmente testável, significa que ela provavelmente foi bem escrita.
 
