@@ -16,7 +16,7 @@ Existem vários tipos de dublês:
 - Mocks:  
     Mocks são objetos moldados, podem ser coonfigurados para se comportarem como os objetos de produção, eles nos oferecem um ferramental a mais para analisarmos como eles se comportam.
 
-Fakes e stubs são metodos mais academicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, na ferramenta Moq.
+Fakes e stubs são exemplis mais academicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, na ferramenta Moq.
 
 ## Entendendo os Mocks
 
@@ -31,21 +31,38 @@ O Mock é responsável por receber e retornar configurações do comportamento d
 
 ## O Moq
 
-O Moq é uma biblioteca...
+O Moq é uma biblioteca que nos permite utilizar Mocks. Para instalar o pacote do Moq no seu projeto de testes .NET core basta executar o seguinte comando no diretório do projeto:
 
-Para instanciar um novo mock, basta chamar o construtor, passando por parametro (de tipo genérico) a interface que você deseja simular.
+    dotnet add package Moq
+
+Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe Mock, passando por parametro (de tipo genérico) a interface que o mock deve simular.
 
     var fooMock = new Mock<IFoo>();
 
-É importante lembrar que o Mock em si não implementa a interface passada por parametro. Em sua estrutura, o mock possui uma propriedade publica chamada de Object, que é usada como output do mock, e essa sim implementando a interface. Então quando formos utilizar o mock para uma ação, o código fica assim:  
+É importante lembrar que o Mock em si não implementa a interface passada por parametro. Em sua estrutura, o mock possui uma propriedade publica chamada de Object, que é usada como output do mock, e essa sim implementando a interface. Então quando formos utilizar o mock, o código fica assim:  
 
-    // bar é o objeto que estamos testando, este método, por exemplo, depende de foo para ser executado.
-    bar.doSomethingWithFoo(fooMock.Object);
+    // sendo "bar" o objeto que iremos testar
+    var bar = new Bar(fooMock.Object);
 
 
-#### Os Métodos de Configuração
+### Os Métodos de Configuração
 
-#### Os Métodos de Verificacão
+Para configurar um comportamento de um mock nós utilizamos os métodos ***Setup***.
+
+#### Configurando um método:
+ Para confugurar o método GetById() de uma classe de repositório para sempre retornar um resultado esperado o códigpo ficaria assim: 
+
+    var id = 16;
+    var expectedResult = new Result(){
+        id = id
+    }
+    var repositoryMock = new Mock<IRepository>();
+    repositoryMock.Setup(p=> p.GetById(id)).Returns(expectedResult);
+
+### Os Métodos de Verificacão
+
+
+## Exmplos
 
 ## Referências
 
@@ -56,7 +73,7 @@ https://blog.pragmatists.com/test-doubles-fakes-mocks-and-stubs-1a7491dfa3da - A
 https://medium.com/trainingcenter/testes-unit%C3%A1rios-mocks-stubs-spies-e-todas-essas-palavras-dif%C3%ADceis-f2765ac87cc8 - Acessado em 10/06/2019
 
 3. Video: Unit Testing: MOQ Framework - Microsoft Visual Studio: Robert Green e Phil Japikse  
-   https://www.youtube.com/watch?v=dZ2Psa_Bn2Q - Acessado em 05/07/2019
+   https://www.youtube.com/watch?v=dZ2Psa_Bn2Q - Acessado em 05/07/2019  
 
 ---
 Autor: Henrique Felipe Urruth  
