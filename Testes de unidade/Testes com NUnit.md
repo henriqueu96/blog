@@ -32,7 +32,7 @@ No Principio, o NUnit foi portado do JUnit, porém, a partir da versão 3, foi c
         public class FooTests
         {
             [Test]
-            public void DoSomethingElseShouldReturnExpectedValue()
+            public void DoSomethingElse_ShouldReturnExpectedValue()
             {
                 // Arrange
                 var foo = new Foo();
@@ -69,6 +69,63 @@ NotNull() - Para garantir que um valor não é nulo
 - Comparações:   
 Less() - Para garantir que um valor é menor que outro  
 Greater() - Para garantir que um valor é maior que outro 
+
+## Como nomear meus Testes?
+
+Um nome de um teste deve expressar qual o comportamento experado pela feature que está sendo testada, geralmente eles são nomes mais longos e divididos pelo caractere '_' entre seus contextos.
+
+    [Test]
+    GetUser_ShouldReturnExpectedUserWhenValidUserIsRequested()
+    {
+        ...
+    }
+
+No exemplo acima o desenvolvedor nomeou o teste com o nome do método, seguido do comportamento e da condição para aquele comportamento.
+
+    [Test]
+    GetUser_ShouldThrowAnExceptionWhenInvalidUserIsRequested()
+    {
+        ...
+    }
+
+Repare que sem mesmo ver a implementação do teste é possível entender qual comportamento o teste está verificando.
+
+#### Mas e por que esses nomes tão longos?  
+Uma suite de testes deve crescer proporcionalmente ao código de produção, então, ao passar do tempo nossa base de código passa a ter ***muitos*** testes. Para dar manutenção para os testes é fundamental que o nome do teste evite a necessidade de o desenvolvedor ler ele por inteiro para entender o comportamento sendo testado.
+
+Esse padrão de nomenclatura permite também que, ao rodar os testes, o desenvolvedor que quebrou algum dos testes ao fazer uma modificação, intenda rápidamente como concertar o código sem ter que ler o teste inteiro.
+
+## Ciclo de vida de um teste
+
+Como citado anteriormente, uma classe de testes do NUnit contém a annotation TextFixture e pode conter métodos de configuração e de correção, que pode ser executados, por exemplo, por testes de integração que guardam estado.
+
+#### Métodos de Configuração
+
+São métodos que rodam antes da execução de um teste, ou do primeiro teste de uma TestFixture, eles servem para fazer um preparo (Arrange) que é utilizados em todos os testes, por exemplo.
+
+Para configurar todo o TestFixture utiliza-se a anotação TestFixtureSetUp, já para configurar cada um dos testes, utiliza-se o SetUp.
+    
+    [TestFixture]
+    public Class FooTests
+    {
+        // Instancia de objeto que pode ser usado por todos os testes
+        IBar _bar;
+
+        // Objeto sendo testado, ou seja, um objeto novo para cada teste
+        Foo _foo;
+
+        [TestFixtureSetUp]
+        SetUp()
+        {
+            _bar = new Bar();
+        }
+
+        [SetUp]
+        IndividualSetup()
+        {
+            _foo = new Foo();
+        }
+    }
 
 ## Como começar?
 
