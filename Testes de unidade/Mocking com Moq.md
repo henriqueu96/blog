@@ -44,7 +44,10 @@ Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe
     var bar = new Bar(fooMock.Object);
 
 ## Configurando o comportamento da dependência:
- Para confugurar o método GetById() de uma classe de repositório para sempre retornar um resultado esperado o códigpo ficaria assim: 
+
+### Configurando um método
+Podemos substituir o retorno de um método da interface.
+Por exemplo, para confugurar o método GetById() de um repositório para sempre retornar um resultado esperado o códigpo ficaria assim:
 
     var id = 16;
     var expectedResult = new Result(){
@@ -60,14 +63,15 @@ Para que qualer numero pass a ser aceito para o parâmetro, precisamos passa por
 
 Assim, qualquer inteiro passado por parâmetro retornaria o resultado esperado.
 
-## Configurando uma propriedade:
+### Configurando uma propriedade:
 
 Se por alguma necessidade especifica você precise que sua interface contenha alguma propriedade, é possivel configurar esses comportamentos também. Para isso basta usar o método SetupPorperty()
 
     fooMock.SetupProperty(p=> p.Name, "teste");    
 
+Assim, sempre que esta propriedade for chamada, ela conterá um valor esperado.
 
-## Os Métodos de Verificacão
+## Os Métodos de Verificação
 
 Com o Moq, podemos verificar se um método da interface foi chamado com determinado parametro.
 
@@ -75,8 +79,6 @@ Com o Moq, podemos verificar se um método da interface foi chamado com determin
 
 Essa verificação funciona como um assert (verificação), ou seja, se o método não foi chamado, então o teste irá falhar.
 
-
-## Exemplos de  utilização de um mock
 
 ## Referências
 
