@@ -1,37 +1,36 @@
 # Substituindo as dependências dos objetos com Moq
 
 ## Por que eu preciso de um dublê?
-Quando desenvolvemos testes de unidade, é comum termos que trabalhar com objetos complexos, que contenham dependências, ou que se comportam como se estivessem em produção, como, por exemplo, uma consulta em um banco de dados ou uma integração com APIs. Esses comportamentos, porém, deixam nossos testes complexos, dependentes e lentos, tornando, assim, o teste inviável. Para resolver esses problemas usamos dublês, que são objetos que apenas substituem, simulando, os objetos de produção. 
+Quando desenvolvemos testes de unidade, é comum termos que trabalhar com objetos complexos, que contenham dependências, ou que se comportam como se estivessem em produção, como, por exemplo, uma consulta em um banco de dados ou uma integração com APIs. 
+Esses comportamentos, porém, deixam nossos testes complexos, dependentes e lentos, tornando, assim, manter e rodar a suíte de testes inviável. Para resolver esses problemas usamos dublês, que são objetos que apenas substituem os objetos de produção simulando seu comportamento. 
 
-Ou seja, quando queremos testar um comportamento de uma classe que contenha dependencia e queremos apenas simular um suposto comportamento de uma dependencia, então, usmaos dublês. Essa prtática permite a simulação de casos em que a dependencia retorne a resposta esperada, sem chance de falha por causa do ambiente de produção, ou de falha da resposta, sem que eu tenha que alterar nenhuma linha da feature em produção para simular estes casos.
+Ou seja, quando queremos testar o comportamento de uma classe que contenha dependencias e queremos apenas simular um suposto comportamento de uma dependencia, então, usmaos dublês. 
+Essa prtática permite a simulação da dependencia, retornando uma resposta esperada, sem chance de falhas causadas pelo ambiente de produção, ou de falha da resposta, sem que eu tenha que alterar nenhuma linha do código de produção para simular estes casos.
 
 Existem vários tipos de dublês:
 
 - Fakes:  
-    Fakes são objetos que escrevemos com retornos fixo, são os mais trabalhosos de implementar e menos reutilizaveis, por isso são pouco utilizados na prática.  
+    Fakes são objetos que escrevemos com retornos fixo. São os mais trabalhosos de implementar e menos reutilizaveis, por isso são pouco utilizados na prática.  
 
 - Stubs:  
     Stubs são objetos com dados pré definidos, prontos para serem retornados. Ideal para interações com bancos de dados.  
 
 - Mocks:  
-    Mocks são objetos moldados, podem ser coonfigurados para se comportarem como os objetos de produção, eles nos oferecem um ferramental a mais para analisarmos como eles se comportam.
+    Mocks são objetos moldados, eles nos oferecem um ferramental para moulda-los e analisarmos como eles se comportam.
 
-Fakes e stubs são exemplis mais academicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, na ferramenta Moq.
+Fakes e stubs são exemplos mais academicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, a ferramenta Moq.
 
 ## Entendendo os Mocks
 
-![Ilustração da estrutura de um mock, dois circulos concentricos, um o mock e internamente a interface](./content/Mock.png "A estrutura de um mock")
-
 Mocks são objetos que envolvem uma interface, criando configurações para o comportamento da mesma. 
-É possivel, com mocks, configurar o que um método de uma interface irá retornar, ou se dado um parametro X este metodo deve lançar uma exceção. 
+É possivel, com mocks, configurar o que um método de uma interface irá retornar, ou, se dado um parametro X, este metodo deve ou não lançar uma exceção. 
 Podemos. também, verificar se o método foi chamado ou até quantas vezes o método foi chamado.
 
-O Mock é responsável por receber e retornar configurações do comportamento de um objeto interno, criado automaticamente e já implementando a interface que passamos por parametro T. Assim, se eu configurar um método da interface para responder sempre uma resposta X, quando o metodo que estou testando chamar este metodo, o resultado será igual a X.
-
+O Mock é responsável por receber e retornar configurações do comportamento de um objeto interno, criado automaticamente e já implementando a interface que passamos por parametro (de tipo genérico). Assim, se eu configurar um método da interface para responder sempre uma resposta X, quando o metodo a ser testado chamar este metodo, a resposta será X.
 
 ## O Moq
 
-O Moq é uma biblioteca que nos permite utilizar Mocks. Para instalar o pacote do Moq no seu projeto de testes .NET core basta executar o seguinte comando no diretório do projeto:
+O Moq é uma biblioteca que nos permite utilizar os Mocks. Para instalar o pacote do Moq no seu projeto de testes .NET core basta executar o seguinte comando no diretório do projeto:
 
     dotnet add package Moq
 
@@ -44,12 +43,7 @@ Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe
     // sendo "bar" o objeto que iremos testar
     var bar = new Bar(fooMock.Object);
 
-
-### Usando o Moq
-
-Para configurar um comportamento de um mock nós utilizamos os métodos ***Setup***.
-
-### Configurando um método:
+## Configurando o comportamento da dependência:
  Para confugurar o método GetById() de uma classe de repositório para sempre retornar um resultado esperado o códigpo ficaria assim: 
 
     var id = 16;
@@ -66,14 +60,14 @@ Para que qualer numero pass a ser aceito para o parâmetro, precisamos passa por
 
 Assim, qualquer inteiro passado por parâmetro retornaria o resultado esperado.
 
-### Configurando uma propriedade:
+## Configurando uma propriedade:
 
 Se por alguma necessidade especifica você precise que sua interface contenha alguma propriedade, é possivel configurar esses comportamentos também. Para isso basta usar o método SetupPorperty()
 
     fooMock.SetupProperty(p=> p.Name, "teste");    
 
 
-### Os Métodos de Verificacão
+## Os Métodos de Verificacão
 
 Com o Moq, podemos verificar se um método da interface foi chamado com determinado parametro.
 
