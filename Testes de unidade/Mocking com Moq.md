@@ -4,29 +4,29 @@
 Quando desenvolvemos testes de unidade, é comum termos que trabalhar com objetos complexos, que contenham dependências, ou que se comportam como se estivessem em produção, como, por exemplo, uma consulta em um banco de dados ou uma integração com APIs. 
 Esses comportamentos, porém, deixam nossos testes complexos, dependentes e lentos, tornando, assim, manter e rodar a suíte de testes inviável. Para resolver esses problemas usamos dublês, que são objetos que apenas substituem os objetos de produção simulando seu comportamento. 
 
-Ou seja, quando queremos testar o comportamento de uma classe que contenha dependencias e queremos apenas simular um suposto comportamento de uma dependencia, então, usmaos dublês. 
-Essa prtática permite a simulação da dependencia, retornando uma resposta esperada, sem chance de falhas causadas pelo ambiente de produção, ou de falha da resposta, sem que eu tenha que alterar nenhuma linha do código de produção para simular estes casos.
+Ou seja, quando queremos testar o comportamento de uma classe que contenha dependências e queremos apenas simular um suposto comportamento de uma dependência, então, usamos dublês. 
+Essa prática permite a simulação da dependência, retornando uma resposta esperada, sem chance de falhas causadas pelo ambiente de produção, ou de falha da resposta, sem que eu tenha que alterar nenhuma linha do código de produção para simular estes casos.
 
 Existem vários tipos de dublês:
 
 - Fakes:  
-    Fakes são objetos que escrevemos com retornos fixo. São os mais trabalhosos de implementar e menos reutilizaveis, por isso são pouco utilizados na prática.  
+    Fakes são objetos que escrevemos com retornos fixos. São os mais trabalhosos de implementar e menos reutilizáveis, por isso são pouco utilizados na prática.  
 
 - Stubs:  
     Stubs são objetos com dados pré definidos, prontos para serem retornados. Ideal para interações com bancos de dados.  
 
 - Mocks:  
-    Mocks são objetos moldados, eles nos oferecem um ferramental para moulda-los e analisarmos como eles se comportam.
+    Mocks são objetos moldados, eles nos oferecem um ferramental para moldá-los e analisarmos como eles se comportam.
 
-Fakes e stubs são exemplos mais academicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, a ferramenta Moq.
+Fakes e stubs são exemplos mais acadêmicos, e é pela facilidade do uso e pelo ferramental mais elaborado, que vamos focar em estudar os mocks e, no nosso caso, a ferramenta Moq.
 
 ## Entendendo os Mocks
 
 Mocks são objetos que envolvem uma interface, criando configurações para o comportamento da mesma. 
-É possivel, com mocks, configurar o que um método de uma interface irá retornar, ou, se dado um parametro X, este metodo deve ou não lançar uma exceção. 
-Podemos. também, verificar se o método foi chamado ou até quantas vezes o método foi chamado.
+É possível, com mocks, configurar o que um método de uma interface irá retornar, ou, se dado um parâmetro X, este método deve ou não lançar uma exceção. 
+Podemos. Também, verificar se o método foi chamado ou até quantas vezes o método foi chamado.
 
-O Mock é responsável por receber e retornar configurações do comportamento de um objeto interno, criado automaticamente e já implementando a interface que passamos por parametro (de tipo genérico). Assim, se eu configurar um método da interface para responder sempre uma resposta X, quando o metodo a ser testado chamar este metodo, a resposta será X.
+O Mock é responsável por receber e retornar configurações do comportamento de um objeto interno, criado automaticamente e já implementando a interface que passamos por parâmetro (de tipo genérico). Assim, se eu configurar um método da interface para responder sempre uma resposta X, quando o método a ser testado chamar este método, a resposta será X.
 
 ## O Moq
 
@@ -34,11 +34,11 @@ O Moq é uma biblioteca que nos permite utilizar os Mocks. Para instalar o pacot
 
     dotnet add package Moq
 
-Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe Mock, passando por parametro (de tipo genérico) a interface que o mock deve simular.
+Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe Mock, passando por parâmetro (de tipo genérico) a interface que o mock deve simular.
 
     var fooMock = new Mock<IFoo>();
 
-É importante lembrar que o Mock em si não implementa a interface passada por parametro. Em sua estrutura, o mock possui uma propriedade publica chamada de Object, que é usada como output do mock, e essa sim implementando a interface. Então quando formos utilizar o mock, o código fica assim:  
+É importante lembrar que o Mock em si não implementa a interface passada por parâmetro. Em sua estrutura, o mock possui uma propriedade pública chamada de Object, que é usada como output do mock, e essa sim implementando a interface. Então quando formos utilizar o mock, o código fica assim:  
 
     // sendo "bar" o objeto que iremos testar
     var bar = new Bar(fooMock.Object);
@@ -47,7 +47,7 @@ Para instanciar um novo mock utilizando Moq, basta chamar o construtor da classe
 
 ### Configurando um método
 Podemos substituir o retorno de um método da interface.
-Por exemplo, para confugurar o método GetById() de um repositório para sempre retornar um resultado esperado o códigpo ficaria assim:
+Por exemplo, para configurar o método GetById() de um repositório para sempre retornar um resultado esperado o código ficaria assim:
 
     var id = 16;
     var expectedResult = new Result(){
@@ -56,8 +56,8 @@ Por exemplo, para confugurar o método GetById() de um repositório para sempre 
     var repositoryMock = new Mock<IRepository>();
     repositoryMock.Setup(p=> p.GetById(id)).Returns(expectedResult);
 
-Repare que para o resultado esperado ser retornado, o parametro passado para o método deve ser o numero 16.
-Para que qualer numero pass a ser aceito para o parâmetro, precisamos passa por parametro a expressão:
+Repare que para o resultado esperado ser retornado, o parâmetro passado para o método deve ser o número 16.
+Para que qualquer número passe a ser aceito para o parâmetro, precisamos passa por parâmetro a expressão:
 
     repositoryMock.Setup(p=> p.GetById(It.IsAny<int>())).Returns(expectedResult);
 
@@ -65,15 +65,15 @@ Assim, qualquer inteiro passado por parâmetro retornaria o resultado esperado.
 
 ### Configurando uma propriedade:
 
-Se por alguma necessidade especifica você precise que sua interface contenha alguma propriedade, é possivel configurar esses comportamentos também. Para isso basta usar o método SetupPorperty()
+Se por alguma necessidade específica você precise que sua interface contenha alguma propriedade, é possível configurar esses comportamentos também. Para isso basta usar o método SetupPorperty()
 
-    fooMock.SetupProperty(p=> p.Name, "teste");    
+    fooMock.SetupProperty(p=> p.Name, "test");    
 
 Assim, sempre que esta propriedade for chamada, ela conterá um valor esperado.
 
 ## Os Métodos de Verificação
 
-Com o Moq, podemos verificar se um método da interface foi chamado com determinado parametro.
+Com o Moq, podemos verificar se um método da interface foi chamado com determinado parâmetro.
 
     fooMock.Verify(p=> p.doSomething(2));
 
