@@ -72,10 +72,10 @@ Greater() - Para garantir que um valor é maior que outro
 
 ## Como nomear meus Testes?
 
-Um nome de um teste deve expressar qual o comportamento experado pela feature que está sendo testada, geralmente eles são nomes mais longos e divididos pelo caractere '_' entre seus contextos.
+Um nome de um teste deve expressar qual o comportamento esperado pela feature que está sendo testada, geralmente eles são nomes mais longos e divididos pelo caractere '_' entre seus contextos.
 
     [Test]
-    GetUser_ShouldReturnExpectedUserWhenValidUserIsRequested()
+    GetUser_ShouldReturnExpectedUser_WhenValidUserIsRequested()
     {
         ...
     }
@@ -83,12 +83,12 @@ Um nome de um teste deve expressar qual o comportamento experado pela feature qu
 No exemplo acima o desenvolvedor nomeou o teste com o nome do método, seguido do comportamento e da condição para aquele comportamento.
 
     [Test]
-    GetUser_ShouldThrowAnExceptionWhenInvalidUserIsRequested()
+    GetUser_ShouldThrowAnException_WhenInvalidUserIsRequested()
     {
         ...
     }
 
-Repare que sem mesmo ver a implementação do teste é possível entender qual comportamento o teste está verificando.
+A ideia ao nomear os testes desta maneira é que sem mesmo ler o teste, um desenvolvedor saiba a qual feature e a qual comportamento se refere o teste.
 
 #### Mas e por que esses nomes tão longos?  
 Uma suite de testes deve crescer proporcionalmente ao código de produção, então, ao passar do tempo nossa base de código passa a ter ***muitos*** testes. Para dar manutenção para os testes é fundamental que o nome do teste evite a necessidade de o desenvolvedor ler ele por inteiro para entender o comportamento sendo testado.
