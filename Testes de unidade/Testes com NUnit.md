@@ -99,17 +99,17 @@ Esse padrão de nomenclatura permite também que, ao rodar os testes, o desenvol
 
 Como citado anteriormente, uma classe de testes do NUnit contém a annotation TextFixture e pode conter métodos de configuração e de correção, que pode ser executados, por exemplo, por testes de integração que guardam estado.
 
-#### Métodos de Configuração
+#### Métodos de Pré-Teste (Setup)
 
-São métodos que rodam antes da execução de um teste, ou do primeiro teste de uma TestFixture, eles servem para fazer um preparo (Arrange) que é utilizados em todos os testes, por exemplo.
+São métodos que rodam antes da execução dos testes. Utilizamos o método Setup para podemos preparar (Arrange) elementos que são utilizados em todos os testes, por exemplo.
 
-Para configurar todo o TestFixture utiliza-se a anotação TestFixtureSetUp, já para configurar cada um dos testes, utiliza-se o SetUp.
+Para fazer um setup em uma TestFixture criamos um método e o anotamos com a anotação Setup, assim, esse método ira ser executado antes de cada um dos testes desta TestFixture.
     
     [TestFixture]
     public Class FooTests
     {
         // Instancia de objeto que pode ser usado por todos os testes
-        IBar _bar;
+        Mock<IBar> _barMock;
 
         // Objeto sendo testado, ou seja, um objeto novo para cada teste
         Foo _foo;
@@ -117,7 +117,7 @@ Para configurar todo o TestFixture utiliza-se a anotação TestFixtureSetUp, já
         [TestFixtureSetUp]
         SetUp()
         {
-            _bar = new Bar();
+            _barMock = new Mock<Bar>();
         }
 
         [SetUp]
@@ -126,6 +126,41 @@ Para configurar todo o TestFixture utiliza-se a anotação TestFixtureSetUp, já
             _foo = new Foo();
         }
     }
+
+#### Métodos de Pós-Teste (Setup)
+
+São métodos que rodam depois da execução dos testes. Servem para reparar os feitos dos testes, por exemplo.
+
+    [TestFixture]
+    public Class FooRepositoryTests
+    {
+        private readonly IFooRepository _fooRepository;
+        private Foo _foo;
+            
+        [TestFixtureSetUp]
+        SetUp()
+        {
+            _fooRepository = new FooRepository();
+            _foo = new Foo()
+            {
+                id = 9999
+            };
+        }
+
+        [Test]
+        public Task SaveFoo_ShouldSaveFoo_WhenAValidFooIsPassed()
+        {
+            var response = await _fooRepository.SaveAsync(_foo);
+            Assert.IsTrue(response.IsSuccess());
+        }
+
+        [TearDown]       
+        public Task TearDown()
+        {
+            await _fooRepository.RemoveAsync(_foo);
+        }
+    }
+
 
 ## Como começar?
 
